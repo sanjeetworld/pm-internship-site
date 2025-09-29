@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME MINISTER INTERNSHIP SCHEME</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #E6F0FA 0%, #DFF1FF 100%);
+            color: #1C1C1C;
+            text-align: center;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 20px;
+            background: #003B8E;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        .logo-container {
+            width: 180px;
+            height: 120px;
+            margin: 0 auto 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            box-shadow: 0 6px 20px rgba(0, 59, 142, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 0px solid #45B649;
+        }
+        .logo-svg:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(69, 182, 73, 0.3);
+        }
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+        .subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: #E6F0FA;
+            margin: 5px 0;
+        }
+        .tagline {
+            font-size: 14px;
+            color: #DFF1FF;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tab {
+            width: 280px;
+            height: 180px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            border: 2px solid #E6F0FA;
+            position: relative;
+            overflow: hidden;
+        }
+        .tab:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(246, 139, 31, 0.3);
+            background: #F68B1F;
+            color: #fff;
+            border-color: #F68B1F;
+        }
+        .tab i {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: #45B649;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .tab:hover i {
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .tab span {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1C1C1C;
+            padding: 0 15px;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+        .tab:hover span {
+            color: #fff;
+        }
+        .footer {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid #45B649;
+        }
+        .footer p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            color: #003B8E;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #F68B1F;
+        }
+        .language-toggle {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .language-toggle i {
+            font-size: 18px;
+            color: #E6F0FA;
+        }
+        .language-toggle select {
+            font-size: 16px;
+            padding: 8px 12px;
+            border: 2px solid #E6F0FA;
+            border-radius: 8px;
+            background: #fff;
+            color: #003B8E;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .language-toggle select:focus {
+            border-color: #F68B1F;
+            box-shadow: 0 0 0 3px rgba(246, 139, 31, 0.1);
+            outline: none;
+        }
+        .lang-hi .title, .lang-hi .subtitle, .lang-hi .tagline, .lang-hi .tab span {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container" style="width: 100%; height: 220px; display: flex; justify-content: center; align-items: center;">
+            <img src="D:\Users\HP\Downloads\PM_Internship_Scheme_Super_Ultra_Wide.jpg" alt="Prime Minister Internship Scheme Logo" class="logo-svg" id="logo-svg" style="width: 80%; height: 100%; object-fit: contain;">
+        </div>
+        <div class="language-toggle">
+            <i class="fas fa-globe"></i>
+            <select id="lang-select">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+            </select>
+        </div>
+    </div>
+    <div class="tabs">
+        <div class="tab" onclick="window.location.href='MAINFINDINTERNSHIP.html'" style="cursor: pointer;">
+    <i class="fas fa-briefcase"></i>
+    <span id="tab1">Find Internship</span>
+</div>
+        <div class="tab">
+            <i class="fas fa-chart-line"></i>
+            <span id="tab2">Internship Status</span>
+        </div>
+       <div class="tab" onclick="window.location.href='MAINUSERGUIDE.html'" style="cursor: pointer;">
+    <i class="fas fa-book"></i>
+    <span id="tab3">User Guide</span>
+    </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Government of India. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <script>
+        const langSelect = document.getElementById('lang-select');
+        const body = document.body;
+
+        // Language data
+        const languages = {
+            en: {
+                tab1: 'Find Internship',
+                tab2: 'Internship Status',
+                tab3: 'User Guide'
+            },
+            hi: {
+                tab1: 'इंटर्नशिप खोजें',
+                tab2: 'इंटर्नशिप स्थिति',
+                tab3: 'उपयोगकर्ता गाइड'
+            }
+        };
+
+        function updateLanguage(lang) {
+            const data = languages[lang];
+            
+            // Update texts
+            document.getElementById('tab1').innerHTML = data.tab1;
+            document.getElementById('tab2').innerHTML = data.tab2;
+            document.getElementById('tab3').innerHTML = data.tab3;
+            
+            // For Hindi, adjust font
+            if (lang === 'hi') {
+                body.classList.add('lang-hi');
+            } else {
+                body.classList.remove('lang-hi');
+            }
+            
+            // Update html lang
+            document.documentElement.lang = lang;
+            
+            // Save to localStorage
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('preferredLang') || 'en';
+        langSelect.value = savedLang;
+        updateLanguage(savedLang);
+
+        // Listen for change
+        langSelect.addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
+        });
+    </script>
+</body>
+</html>

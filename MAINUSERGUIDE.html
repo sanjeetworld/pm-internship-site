@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Internship Scheme - User Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts for Poppins and Noto Sans Devanagari -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Flowchart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.17.0/release/flowchart.min.js"></script>
+    <style>
+        /* Custom styles to match landing page theme */
+        :root {
+            --primary-blue: #003B8E; /* Deep Navy Blue */
+            --accent-green: #45B649; /* Vivid Green */
+            --accent-orange: #F68B1F; /* Bright Orange */
+            --bg-light-blue: #E6F0FA; /* Light Blue */
+            --bg-lighter-blue: #DFF1FF; /* Very Light Blue */
+            --text-dark: #1C1C1C; /* Near Black */
+            --text-gray: #6c757d; /* Medium Gray */
+            --card-bg: #ffffff; /* White */
+            --border-light: #E6F0FA; /* Light Border */
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-lighter-blue) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+        /* Hindi font support */
+        .lang-hi, .lang-hi h1, .lang-hi h2, .lang-hi h3, .lang-hi p, .lang-hi span, .lang-hi a {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+        }
+        .sih-header {
+            background: var(--primary-blue);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--border-light);
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(246, 139, 31, 0.3);
+            border-color: var(--accent-orange);
+        }
+        /* Enhanced tilt effect for features section */
+        #features .section-card:nth-child(1):hover {
+            transform: translateY(-8px) scale(1.03) rotate(2deg);
+            box-shadow: 0 8px 20px rgba(0, 59, 142, 0.3);
+        }
+        #features .section-card:nth-child(2):hover {
+            transform: translateY(-8px) scale(1.03) rotate(-2deg);
+            box-shadow: 0 8px 20px rgba(246, 139, 31, 0.3);
+        }Getting Started
+        #features .section-card:nth-child(3):hover {
+            transform: translateY(-8px) scale(1.03) rotate(1deg);
+            box-shadow: 0 8px 20px rgba(69, 182, 73, 0.3);
+        }
+        .gov-logo {
+            border: 3px solid var(--accent-green);
+            border-radius: 0;
+            box-shadow: 0 6px 20px rgba(0, 59, 142, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 110px;
+            height: 48px;
+        }
+        .gov-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(69, 182, 73, 0.3);
+        }
+        .sih-intro {
+            background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-lighter-blue) 100%);
+        }
+        .sih-accent-border {
+            border-color: var(--accent-green);
+        }
+        .flowchart-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        /* Progress Tracker Styles */
+        .progress-step {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .progress-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-gray);
+            z-index: 1;
+        }
+        .progress-circle.completed {
+            background-color: var(--accent-green);
+            color: #fff;
+        }
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 2.5rem;
+            width: calc(100% - 5rem);
+            height: 4px;
+            background-color: var(--border-light);
+            z-index: 0;
+        }
+        .progress-line.completed {
+            background-color: var(--accent-green);
+        }
+        .progress-label {
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        /* Steps-image flex container */
+        .steps-container {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .steps-text {
+            flex: 1;
+        }
+        .steps-image {
+            flex: 1;
+            max-width: 550px;
+            max-height: 800px;
+        }
+        .steps-image img {
+            width: 100%;
+            height: auto;
+            max-height: 800px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .steps-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .steps-image {
+                max-width: 100%;
+                order: -1;
+                max-height: none;
+            }
+            .steps-image img {
+                max-height: 500px;
+            }
+        }
+        /* Icon backgrounds for features */
+        .icon-blue { background-color: rgba(0, 59, 142, 0.1); }
+        .icon-blue svg { color: var(--primary-blue); }
+        .icon-orange { background-color: rgba(246, 139, 31, 0.1); }
+        .icon-orange svg { color: var(--accent-orange); }
+        .icon-green { background-color: rgba(69, 182, 73, 0.1); }
+        .icon-green svg { color: var(--accent-green); }
+        /* Language toggle */
+        .lang-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .lang-logo {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--primary-blue);
+        }
+        .lang-toggle-container button {
+            font-size: 16px;
+            padding: 8px 12px;
+            border: 2px solid var(--bg-light-blue);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--primary-blue);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+        .lang-toggle-container button:hover {
+            border-color: var(--accent-orange);
+            background: var(--accent-orange);
+            color: #fff;
+            box-shadow: 0 0 0 3px rgba(246, 139, 31, 0.1);
+        }
+        /* Pictorial steps */
+        .pictorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-green);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .pictorial-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(246, 139, 31, 0.3);
+            background-color: rgba(246, 139, 31, 0.05);
+        }
+        .pictorial-step i {
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            margin-top: 0.25rem;
+        }
+        .pictorial-step .step-number {
+            width: 2rem;
+            height: 2rem;
+            background-color: var(--accent-orange);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .pictorial-step .step-content {
+            flex: 1;
+        }
+        .pictorial-step ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .pictorial-step ul li {
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+        .pictorial-step ul li:hover {
+            color: var(--accent-orange);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body class="font-sans text-[var(--text-dark)]">
+    <!-- Header with Government Logo -->
+    <header class="sih-header text-white border-b-4 sih-accent-border shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+    <a href="index.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+        <img src="D:\Users\HP\Downloads\WhatsApp Image 2025-09-29 at 14.10.34.jpeg" 
+             alt="PM Internship Scheme Logo" 
+             class="w-12 h-12 gov-logo" 
+             style="cursor: pointer;">
+        <h1 class="text-2xl font-bold" 
+            id="header-title" 
+            data-en="PM Internship Scheme" 
+            data-hi="प्रधानमंत्री इंटर्नशिप योजना"
+            style="margin-left: 0.5rem; cursor: pointer;">
+            PM Internship Scheme
+        </h1>
+    </a>
+</div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#introduction" class="hover:text-[var(--accent-orange)] transition-colors" data-en="Introduction" data-hi="परिचय">Introduction</a>
+                <a href="#how-it-works" class="hover:text-[var(--accent-orange)] transition-colors" data-en="How It Works" data-hi="यह कैसे काम करता है">How It Works</a>
+                <a href="#getting-started" class="hover:text-[var(--accent-orange)] transition-colors" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+                <a href="#objective" class="hover:text-[var(--accent-orange)] transition-colors" data-en="Objective" data-hi="उद्देश्य">Objective</a>
+                <a href="#features" class="hover:text-[var(--accent-orange)] transition-colors" data-en="Features" data-hi="विशेषताएँ">Features</a>
+                <a href="#faqs" class="hover:text-[var(--accent-orange)] transition-colors" data-en="FAQs" data-hi="सामान्य प्रश्न">FAQs</a>
+                <a href="#troubleshooting" class="hover:text-[var(--accent-orange)] transition-colors" data-en="Troubleshooting" data-hi="समस्या निवारण">Troubleshooting</a>
+            </div>
+            <!-- Language Toggle with Logo -->
+            <div class="lang-toggle-container">
+                <div class="lang-logo">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <button id="lang-toggle" class="font-semibold touch-action-manipulation">हिंदी</button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden focus:outline-none ml-2 text-white hover:text-[var(--accent-orange)]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[var(--primary-blue)]/90 px-4 py-2 backdrop-blur-sm">
+            <a href="#introduction" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="Introduction" data-hi="परिचय">Introduction</a>
+            <a href="#how-it-works" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="How It Works" data-hi="यह कैसे काम करता है">How It Works</a>
+            <a href="#getting-started" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+            <a href="#objective" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="Objective" data-hi="उद्देश्य">Objective</a>
+            <a href="#features" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="Features" data-hi="विशेषताएँ">Features</a>
+            <a href="#faqs" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="FAQs" data-hi="सामान्य प्रश्न">FAQs</a>
+            <a href="#troubleshooting" class="block py-2 hover:text-[var(--accent-orange)] transition-colors" data-en="Troubleshooting" data-hi="समस्या निवारण">Troubleshooting</a>
+        </div>
+    </header>
+
+    <!-- Introduction Section -->
+    <section id="introduction" class="sih-intro py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: #F68B1F; text-transform: uppercase;" data-en="Welcome to the PM Internship Scheme User Guide" data-hi="प्रधानमंत्री इंटर्नशिप योजना उपयोगकर्ता गाइड में आपका स्वागत है">WELCOME TO THE PM INTERNSHIP SCHEME USER GUIDE</h2>
+            <p class="text-lg mb-6 max-w-3xl mx-auto" data-en="This easy guide helps young people from all over India, like villages, tribal areas, city slums, and far-away colleges, use our smart AI website to find internships that fit your skills, likes, and dreams. Many users are first-time learners with little computer knowledge and no past internships." data-hi="यह आसान गाइड भारत भर के युवाओं को, जैसे गांवों, आदिवासी क्षेत्रों, शहर की झुग्गियों और दूर-दराज के कॉलेजों से, हमारी स्मार्ट एआई वेबसाइट का उपयोग करके अपनी कौशल, पसंद और सपनों से मेल खाने वाली इंटर्नशिप ढूंढने में मदद करता है। कई उपयोगकर्ता पहली बार सीखने वाले हैं जिनके पास कंप्यूटर का कम ज्ञान है और कोई पिछली इंटर्नशिप नहीं है।">This easy guide helps young people from all over India, like villages, tribal areas, city slums, and far-away colleges, use our smart AI website to find internships that fit your skills, likes, and dreams. Many users are first-time learners with little computer knowledge and no past internships.</p>
+            <p class="text-md text-[var(--text-gray)]" data-en="It's simple and works on phones too! We show only 3-5 best options, not a big list, to make it easy." data-hi="यह सरल है और फोन पर भी काम करता है! हम केवल 3-5 सर्वोत्तम विकल्प दिखाते हैं, बड़ी सूची नहीं, ताकि यह आसान हो।">It's simple and works on phones too! We show only 3-5 best options, not a big list, to make it easy.</p>
+            <!-- Combined Flowchart with Circles -->
+            <div class="flowchart-container">
+                <h3 class="text-lg font-semibold mb-4 text-center" data-en="User Guide & AI Matching Process" data-hi="उपयोगकर्ता गाइड और एआई मिलान प्रक्रिया">User Guide & AI Matching Process</h3>
+                <div id="combined-flowchart" class="text-center"></div>
+            </div>
+            <img src="https://via.placeholder.com/600x300/003B8E/45B649?text=Platform+Overview" alt="Platform Overview" class="mx-auto mt-6 rounded-lg shadow-md">
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="How the Website Works" data-hi="वेबसाइट कैसे काम करती है">How the Website Works</h2>
+            <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md">
+                <p class="mb-4" data-en="Our website uses a smart AI system (like a helpful guide) to find internships that match you best. Here's how it works in simple steps:" data-hi="हमारी वेबसाइट एक स्मार्ट एआई सिस्टम (एक मददगार गाइड की तरह) का उपयोग करती है जो आपके लिए सबसे उपयुक्त इंटर्नशिप ढूंढता है। यहाँ सरल चरणों में बताया गया है कि यह कैसे काम करता है:">Our website uses a smart AI system (like a helpful guide) to find internships that match you best. Here's how it works in simple steps:</p>
+                <div class="steps-container">
+                    <div class="steps-text">
+                        <div class="space-y-4">
+                            <div class="pictorial-step">
+                                <div class="step-number">1</div>
+                                <i class="fas fa-user-circle"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 1: You share basic info: your education (school or college), skills (what you can do), interests (what jobs you like), and location (where you want to work)." data-hi="चरण 1: आप बुनियादी जानकारी साझा करें: आपकी शिक्षा (स्कूल या कॉलेज), कौशल (आप क्या कर सकते हैं), रुचियां (आपको कौन सी नौकरियां पसंद हैं), और स्थान (आप कहां काम करना चाहते हैं)।">Step 1: You share basic info: your education (school or college), skills (what you can do), interests (what jobs you like), and location (where you want to work).</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">2</div>
+                                <i class="fas fa-search"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 2: The AI checks hundreds of internships listed on our portal." data-hi="चरण 2: एआई हमारे पोर्टल पर सूचीबद्ध सैकड़ों इंटर्नशिप की जांच करता है।">Step 2: The AI checks hundreds of internships listed on our portal.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">3</div>
+                                <i class="fas fa-brain"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 3: It uses simple rules or light learning to pick the 3-5 best matches for you." data-hi="चरण 3: यह सरल नियमों या हल्के लर्निंग का उपयोग करके आपके लिए 3-5 सर्वोत्तम मैच चुनता है।">Step 3: It uses simple rules or light learning to pick the 3-5 best matches for you.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">4</div>
+                                <i class="fas fa-th-list"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 4: You see these matches as easy-to-read cards with pictures, company names, and short details." data-hi="चरण 4: आप इन मैचों को पढ़ने में आसान कार्ड्स के रूप में देखते हैं, जिसमें चित्र, कंपनी के नाम और संक्षिप्त विवरण होते हैं।">Step 4: You see these matches as easy-to-read cards with pictures, company names, and short details.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">5</div>
+                                <i class="fas fa-paper-plane"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 5: Choose one you like and apply with a single tap. This helps avoid wrong choices!" data-hi="चरण 5: अपनी पसंद का एक चुनें और एक टैप से आवेदन करें। यह गलत विकल्पों से बचने में मदद करता है!">Step 5: Choose one you like and apply with a single tap. This helps avoid wrong choices!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="steps-image">
+                        <img src="D:\Users\HP\Downloads\Improved Internship Matching Process Flow.jpg" alt="Visual steps of how the website works" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+                <p class="mt-4" data-en="The website is fast, works on slow internet, and supports Hindi or English for your comfort." data-hi="वेबसाइट तेज है, धीमे इंटरनेट पर काम करती है, और आपकी सुविधा के लिए हिंदी या अंग्रेजी का समर्थन करती है।">The website is fast, works on slow internet, and supports Hindi or English for your comfort.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Section -->
+    <section id="getting-started" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="Getting Started" data-hi="शुरू करना">Getting Started</h2>
+            <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4" data-en="How to Access and Sign Up" data-hi="पहुंच और साइन अप कैसे करें">How to Access and Sign Up</h3>
+                <p class="mb-4" data-en= "Follow these simple steps to start using the website:" data-hi="वेबसाइट का उपयोग शुरू करने के लिए इन सरल चरणों का पालन करें:">Follow these simple steps to start using the website:</p>
+                <div class="steps-container">
+                    <div class="steps-text">
+                        <div class="space-y-4">
+                            <div class="pictorial-step">
+                                <div class="step-number">1</div>
+                                <i class="fas fa-globe"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 1: Open a browser app like Chrome on your phone or computer." data-hi="चरण 1: अपने फोन या कंप्यूटर पर क्रोम जैसे ब्राउज़र ऐप खोलें।">Step 1: Open a browser app like Chrome on your phone or computer.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">2</div>
+                                <i class="fas fa-link"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 2: Go to www.pminternship.gov.in by typing it in the address bar." data-hi="चरण 2: एड्रेस बार में www.pminternship.gov.in टाइप करके जाएं।">Step 2: Go to www.pminternship.gov.in by typing it in the address bar.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">3</div>
+                                <i class="fas fa-user-plus"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 3: Tap 'Sign Up' if you're new. Add your name, email or phone, and a simple password." data-hi="चरण 3: यदि आप नए हैं तो 'साइन अप' टैप करें। अपना नाम, ईमेल या फोन, और एक सरल पासवर्ड जोड़ें।">Step 3: Tap 'Sign Up' if you're new. Add your name, email or phone, and a simple password.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">4</div>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 4: Get a code on your email or phone and enter it to confirm your account." data-hi="चरण 4: अपने ईमेल या फोन पर एक कोड प्राप्त करें और अपने खाते की पुष्टि करने के लिए इसे दर्ज करें।">Step 4: Get a code on your email or phone and enter it to confirm your account.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">5</div>
+                                <i class="fas fa-sign-in-alt"></i>
+                                <div class="step-content">
+                                    <span data-en="Step 5: Log in with your email/phone and password to see your homepage." data-hi="चरण 5: अपने ईमेल/फोन और पासवर्ड से लॉग इन करें अपनी होमपेज देखने के लिए।">Step 5: Log in with your email/phone and password to see your homepage.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="steps-image">
+                        <img src="D:\Users\HP\Downloads\PM Internship Website Signup Process.jpg" alt="Visual steps for getting started and sign up" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+                <p class="mt-4 text-center text-[var(--text-gray)]" data-en="Screenshots of Sign Up and Log In pages" data-hi="साइन अप और लॉग इन पेजों के स्क्रीनशॉट">Screenshots of Sign Up and Log In pages</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objective Section -->
+    <section id="objective" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="Objective of PM Internship Portal" data-hi="प्रधानमंत्री इंटर्नशिप पोर्टल का उद्देश्य">Objective of PM Internship Portal</h2>
+            <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4" data-en="Empowering Youth with Opportunities" data-hi="युवाओं को अवसरों के साथ सशक्त बनाना">Empowering Youth with Opportunities</h3>
+                <div class="steps-container">
+                    <div class="steps-text">
+                        <p class="mb-4" data-en="The PM Internship Portal aims to empower young Indians by providing access to meaningful internship opportunities. Its key objectives include:" data-hi="प्रधानमंत्री इंटर्नशिप पोर्टल का उद्देश्य युवा भारतीयों को सार्थक इंटर्नशिप अवसर प्रदान करके सशक्त बनाना है। इसके प्रमुख उद्देश्यों में शामिल हैं:">The PM Internship Portal aims to empower young Indians by providing access to meaningful internship opportunities. Its key objectives include:</p>
+                        <div class="space-y-4">
+                            <div class="pictorial-step">
+                                <div class="step-number">1</div>
+                                <i class="fas fa-users"></i>
+                                <div class="step-content">
+                                    <span data-en="Bridging the Gap: Connect youth from rural, tribal, and urban slum areas to internships that match their skills and aspirations." data-hi="अंतर को पाटना: ग्रामीण, आदिवासी और शहरी झुग्गी क्षेत्रों के युवाओं को उनकी कौशल और आकांक्षाओं से मेल खाने वाली इंटर्नशिप से जोड़ना।">Bridging the Gap: Connect youth from rural, tribal, and urban slum areas to internships that match their skills and aspirations.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">2</div>
+                                <i class="fas fa-graduation-cap"></i>
+                                <div class="step-content">
+                                    <span data-en="Skill Development: Provide hands-on experience to enhance employability and practical knowledge." data-hi="कौशल विकास: रोजगार योग्यता और व्यावहारिक ज्ञान को बढ़ाने के लिए व्यावहारिक अनुभव प्रदान करना।">Skill Development: Provide hands-on experience to enhance employability and practical knowledge.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">3</div>
+                                <i class="fas fa-lightbulb"></i>
+                                <div class="step-content">
+                                    <span data-en="Inclusive Opportunities: Ensure access for first-time learners with minimal computer knowledge and no prior internships." data-hi="समावेशी अवसर: न्यूनतम कंप्यूटर ज्ञान और बिना किसी पूर्व इंटर्नशिप के पहली बार सीखने वालों के लिए पहुंच सुनिश्चित करना।">Inclusive Opportunities: Ensure access for first-time learners with minimal computer knowledge and no prior internships.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">4</div>
+                                <i class="fas fa-rocket"></i>
+                                <div class="step-content">
+                                    <span data-en="Simplified Access: Use AI to deliver 3-5 tailored internship recommendations, making the process easy and efficient." data-hi="सरलीकृत पहुंच: एआई का उपयोग करके 3-5 अनुकूलित इंटर्नशिप अनुशंसाएं प्रदान करना, जिससे प्रक्रिया आसान और कुशल हो।">Simplified Access: Use AI to deliver 3-5 tailored internship recommendations, making the process easy and efficient.</span>
+                                </div>
+                            </div>
+                            <div class="pictorial-step">
+                                <div class="step-number">5</div>
+                                <i class="fas fa-globe-asia"></i>
+                                <div class="step-content">
+                                    <span data-en="Support for All: Offer a user-friendly platform with multilingual support (Hindi/English) and compatibility with slow internet." data-hi="सभी के लिए समर्थन: हिंदी/अंग्रेजी में बहुभाषी समर्थन और धीमे इंटरनेट के साथ संगतता के साथ उपयोगकर्ता-अनुकूल मंच प्रदान करना।">Support for All: Offer a user-friendly platform with multilingual support (Hindi/English) and compatibility with slow internet.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="steps-image">
+                        <img src="D:\Users\HP\Downloads\PM Internship Program Objectives - Original Style.jpg" alt="Visual representation of PM Internship Portal objectives" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+                <p class="mt-4" data-en="The portal strives to create a level playing field for all youth, fostering career growth and economic empowerment." data-hi="पोर्टल सभी युवाओं के लिए समान अवसर प्रदान करने का प्रयास करता है, जिससे करियर विकास और आर्थिक सशक्तिकरण को बढ़ावा मिलता है।">The portal strives to create a level playing field for all youth, fostering career growth and economic empowerment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="Key Features of the Website" data-hi="वेबसाइट की मुख्य विशेषताएँ">Key Features of the Website</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md text-center">
+                    <div class="w-12 h-12 icon-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" data- en="Smart AI Matches" data-hi="स्मार्ट एआई मैच">Smart AI Matches</h3>
+                    <p class="text-[var(--text-gray)]" data-en="AI picks 3-5 internships that fit your skills and interests." data-hi="एआई आपके कौशल और रुचियों से मेल खाने वाली 3-5 इंटर्नशिप चुनता है।">AI picks 3-5 internships that fit your skills and interests.</p>
+                </div>
+                <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md text-center">
+                    <div class="w-12 h-12 icon-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" data-en="Works on Phones" data-hi="फोन पर काम करता है">Works on Phones</h3>
+                    <p class="text-[var(--text-gray)]" data-en="Use it easily on any phone or computer, even with slow internet." data-hi="इसे किसी भी फोन या कंप्यूटर पर आसानी से उपयोग करें, यहां तक कि धीमे इंटरनेट पर भी।">Use it easily on any phone or computer, even with slow internet.</p>
+                </div>
+                <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md text-center">
+                    <div class="w-12 h-12 icon-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" data-en="English or Hindi" data-hi="अंग्रेजी या हिंदी">English or Hindi</h3>
+                    <p class="text-[var(--text-gray)]" data-en="Tap the language button to switch for easy understanding." data-hi="आसान समझ के लिए भाषा बटन टैप करके स्विच करें।">Tap the language button to switch for easy understanding.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section id="faqs" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="Common Questions (FAQs)" data-hi="सामान्य प्रश्न (एफएक्यू)">Common Questions (FAQs)</h2>
+            <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2" data-en="1. How do I change the language?" data-hi="1. मैं भाषा कैसे बदलूं?">1. How do I change the language?</h3>
+                        <p class="text-[var(--text-gray)]" data-en="Tap the 'हिंदी' or 'English' button at the top to switch instantly." data-hi="शीर्ष पर 'हिंदी' या 'English' बटन टैप करें तुरंत स्विच करने के लिए।">Tap the 'हिंदी' or 'English' button at the top to switch instantly.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2" data-en="2. What if I forget my password?" data-hi="2. यदि मैं अपना पासवर्ड भूल जाऊं तो क्या?">2. What if I forget my password?</h3>
+                        <p class="text-[var(--text-gray)]" data-en="On the log in page, tap 'Forgot Password' and follow steps with your email/phone." data-hi="लॉग इन पेज पर, 'पासवर्ड भूल गए' टैप करें और अपने ईमेल/फोन के साथ चरणों का पालन करें।">On the log in page, tap 'Forgot Password' and follow steps with your email/phone.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2" data-en="3. Is it really free?" data-hi="3. क्या यह वाकई मुफ्त है?">3. Is it really free?</h3>
+                        <p class="text-[var(--text-gray)]" data-en="Yes, no cost for anyone to use or apply for internships." data-hi="हां, उपयोग या इंटर्नशिप के लिए आवेदन करने के लिए कोई लागत नहीं।">Yes, no cost for anyone to use or apply for internships.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2" data-en="4. Can I use it with bad internet?" data-hi="4. क्या मैं खराब इंटरनेट के साथ इसका उपयोग कर सकता हूं?">4. Can I use it with bad internet?</h3>
+                        <p class="text-[var(--text-gray)]" data-en="Yes, the site is light and works on slow connections." data-hi="हां, साइट हल्की है और धीमे कनेक्शन पर काम करती है।">Yes, the site is light and works on slow connections.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2" data-en="5. What if no internships match me?" data-hi="5. यदि कोई इंटर्नशिप मुझसे मेल नहीं खाती तो क्या?">5. What if no internships match me?</h3>
+                        <p class="text-[var(--text-gray)]" data-en="Add more details to your profile or check later for new internships." data-hi="अपनी प्रोफाइल में अधिक विवरण जोड़ें या बाद में नई इंटर्नशिप के लिए जांचें।">Add more details to your profile or check later for new internships.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Troubleshooting Section -->
+    <section id="troubleshooting" class="py-12 bg-[var(--card-bg)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8" style="color: #F68B1F;" data-en="Fixing Common Problems" data-hi="सामान्य समस्याओं का समाधान">Fixing Common Problems</h2>
+            <div class="section-card bg-[var(--card-bg)] p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4" data-en="Easy Fixes for Issues" data-hi="समस्याओं के लिए आसान समाधान">Easy Fixes for Issues</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong data-en="Can't sign in" data-hi="साइन इन नहीं कर सकते">Can't sign in</strong>: <span data-en="Check your email/phone and password. Try 'Forgot Password' if needed." data-hi="अपना ईमेल/फोन और पासवर्ड जांचें। यदि जरूरत हो तो 'पासवर्ड भूल गए' आजमाएं।">Check your email/phone and password. Try 'Forgot Password' if needed.</span></li>
+                    <li><strong data-en="No suggestions show" data-hi="कोई सुझाव नहीं दिखते">No suggestions show</strong>: <span data-en="Fill your profile completely with education and skills. Tap 'Save' again." data-hi="अपनी प्रोफाइल को पूरी तरह से शिक्षा और कौशल के साथ भरें। फिर से 'सेव' टैप करें।">Fill your profile completely with education and skills. Tap 'Save' again.</span></li>
+                    <li><strong data-en="Site is slow or not loading" data-hi="साइट धीमी है या लोड नहीं हो रही">Site is slow or not loading</strong>: <span data-en="Check your internet or close other apps. Try again later." data-hi="अपना इंटरनेट जांचें या अन्य ऐप्स बंद करें। बाद में फिर से प्रयास करें।">Check your internet or close other apps. Try again later.</span></li>
+                    <li><strong data-en="Language didn't change" data-hi="भाषा नहीं बदली">Language didn't change</strong>: <span data-en="Tap the language button again or refresh (pull down on phone)." data-hi="भाषा बटन फिर से टैप करें या रिफ्रेश करें (फोन पर नीचे खींचें)।">Tap the language button again or refresh (pull down on phone).</span></li>
+                    <li><strong data-en="Can't apply" data-hi="अप्लाई नहीं कर सकते">Can't apply</strong>: <span data-en="Ensure profile is complete. Note any error and contact help." data-hi="सुनिश्चित करें कि प्रोफाइल पूरी है। कोई त्रुटि नोट करें और मदद से संपर्क करें।">Ensure profile is complete. Note any error and contact help.</span></li>
+                </ul>
+                <p class="mt-4" data-en="For more help, tap 'Contact Us' on the site or call the helpline." data-hi="अधिक मदद के लिए, साइट पर 'संपर्क करें' टैप करें या हेल्पलाइन पर कॉल करें।">For more help, tap 'Contact Us' on the site or call the helpline.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--card-bg)] text-[var(--text-gray)] text-center py-4 border-t-4 sih-accent-border shadow-lg">
+        <p data-en="&copy; 2025 PM Internship Scheme. All rights reserved." data-hi="&copy; 2025 प्रधानमंत्री इंटर्नशिप योजना। सभी अधिकार सुरक्षित।">&copy; 2025 PM Internship Scheme. All rights reserved.</p>
+        <p class="text-sm" data-en="Built for Smart India Hackathon 2025" data-hi="स्मार्ट इंडिया हैकाथॉन 2025 के लिए बनाया गया">Built for Smart India Hackathon 2025</p>
+        <div class="social-icons mt-2">
+            <a href="#" class="mx-2 text-[var(--primary-blue)] hover:text-[var(--accent-orange)] transition-colors"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="mx-2 text-[var(--primary-blue)] hover:text-[var(--accent-orange)] transition-colors"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="mx-2 text-[var(--primary-blue)] hover:text-[var(--accent-orange)] transition-colors"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu Toggle, Language Switch, Flowchart -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language Toggle
+        const langToggle = document.getElementById('lang-toggle');
+        const body = document.body;
+        let currentLang = localStorage.getItem('preferredLang') || 'en';
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+            if (currentLang === 'hi') {
+                body.classList.add('lang-hi');
+            } else {
+                body.classList.remove('lang-hi');
+            }
+            document.documentElement.lang = currentLang;
+            langToggle.textContent = currentLang === 'en' ? 'हिंदी' : 'English';
+            localStorage.setItem('preferredLang', currentLang);
+        }
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            updateLanguage();
+        });
+
+        langToggle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            updateLanguage();
+        });
+
+        // Initialize language
+        updateLanguage();
+
+        // Combined User Guide & AI Matching Flowchart with Circles
+        document.addEventListener('DOMContentLoaded', function() {
+            const combinedChartCode = `
+                start=>circle: Start: Access Website
+                signup=>circle: Sign Up / Log In
+                profile=>circle: Complete Profile\n(Education, Skills, Interests, Location)
+                save=>circle: Save Profile
+                aiCheck=>circle: AI Analyzes\nInternships
+                match=>circle: Generate 3-5 Matches
+                view=>circle: View Cards\n(Company, Job, Location)
+                apply=>circle: Select & Apply
+                issue=>circle: Any Issues?
+                troubleshoot=>circle: Troubleshoot\n(Check FAQs or Contact Help)
+                end=>circle: End: Internship Applied!
+
+                start->signup
+                signup->profile
+                profile->save
+                save->aiCheck
+                aiCheck->match
+                match->view
+                view->apply
+                apply->issue
+                issue(yes)->troubleshoot
+                issue(no)->end
+                troubleshoot->end
+            `;
+            const combinedDiagram = flowchart.parse(combinedChartCode);
+            combinedDiagram.drawSVG('combined-flowchart', {
+                'x': 20,
+                'y': 20,
+                'line-width': 2,
+                'line-length': 50,
+                'text-margin': 10,
+                'font-size': 14,
+                'font': 'normal',
+                'font-family': 'Poppins, sans-serif',
+                'font-weight': 300,
+                'font-color': 'var(--text-dark)',
+                'line-color': 'var(--accent-green)',
+                'element-color': 'var(--border-light)',
+                'fill': 'var(--card-bg)',
+                'yes-text': 'Yes',
+                'no-text': 'No',
+                'arrow-end': 'block',
+                'scale': 1,
+                'symbols': {
+                    'circle': {
+                        'font-color': 'var(--text-dark)',
+                        'element-color': 'var(--accent-green)',
+                        'fill': 'rgba(69, 182, 73, 0.1)',
+                        'line-color': 'var(--accent-green)'
+                    },
+                    'start': {
+                        'font-color': '#ffffff',
+                        'element-color': 'var(--primary-blue)',
+                        'fill': 'var(--primary-blue)'
+                    },
+                    'end': {
+                        'font-color': '#ffffff',
+                        'element-color': 'var(--accent-orange)',
+                        'fill': 'var(--accent-orange)',
+                        'line-color': 'var(--accent-orange)'
+                    },
+                    'issue': {
+                        'font-color': 'var(--text-dark)',
+                        'element-color': 'var(--accent-orange)',
+                        'fill': 'rgba(246, 139, 31, 0.1)',
+                        'line-color': 'var(--accent-orange)'
+                    },
+                    'aiCheck': {
+                        'font-color': 'var(--text-dark)',
+                        'element-color': 'var(--primary-blue)',
+                        'fill': 'rgba(0, 59, 142, 0.1)',
+                        'line-color': 'var(--primary-blue)'
+                    },
+                    'match': {
+                        'font-color': 'var(--text-dark)',
+                        'element-color': 'var(--accent-green)',
+                        'fill': 'rgba(69, 182, 73, 0.1)',
+                        'line-color': 'var(--accent-green)'
+                    }
+                },
+                'flowstate': {
+                    'start': {'font-size': 16, 'font-weight': 'bold'},
+                    'aiCheck': {'font-size': 12},
+                    'match': {'font-size': 12},
+                    'issue': {'font-size': 12}
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME MINISTER INTERNSHIP SCHEME</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #E6F0FA 0%, #DFF1FF 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: #1C1C1C;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Tilt Effect */
+        .tilt-element {
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+        }
+        .tilt-left:hover {
+            transform: rotateX(5deg) rotateY(-5deg) scale(1.02);
+        }
+        .tilt-right:hover {
+            transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #F68B1F;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #003B8E;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar-brand img {
+            width: 70px;
+            height: 40px;
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 59, 142, 0.2);
+            object-fit: cover;
+        }
+        .nav-link {
+            color: #1C1C1C;
+            font-weight: 500;
+            border-radius: 10px;
+            padding: 0.75rem 1.25rem;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link:hover {
+            background: #F68B1F;
+            color: #fff !important;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(246, 139, 31, 0.4);
+        }
+        .nav-link.active {
+            background: #F68B1F;
+            color: #fff !important;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #E6F0FA;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-container:hover {
+            transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+        }
+
+        /* Form Elements */
+        .form-label {
+            font-weight: 600;
+            color: #003B8E;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #E6F0FA;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #F68B1F;
+            box-shadow: 0 0 0 0.2rem rgba(246, 139, 31, 0.25);
+            transform: rotateX(2deg) scale(1.02);
+        }
+        .is-invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            display: none;
+            margin-top: 0.25rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #F68B1F;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            font-weight: 500;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            background: #45B649;
+            box-shadow: 0 4px 15px rgba(69, 182, 73, 0.4);
+            transform: translateY(-2px);
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Skills Buttons */
+        .skills-buttons .btn {
+            background: #E6F0FA;
+            border: 1px solid #E6F0FA;
+            color: #1C1C1C;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0.125rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .skills-buttons .btn:hover {
+            background: #F68B1F;
+            border-color: #F68B1F;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(246, 139, 31, 0.3);
+        }
+        .skills-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        .skills-buttons .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Icons */
+        .icon {
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .icon:hover {
+            transform: scale(1.2);
+        }
+        .bi-briefcase { color: #003B8E; }
+        .bi-briefcase:hover { color: #45B649; }
+        .bi-search { color: #F68B1F; }
+        .bi-search:hover { color: #45B649; }
+        .bi-clock-history { color: #1C1C1C; }
+        .bi-clock-history:hover { color: #003B8E; }
+        .bi-book { color: #45B649; }
+        .bi-book:hover { color: #F68B1F; }
+        .bi-person-plus { color: #003B8E; }
+        .bi-person-plus:hover { color: #F68B1F; }
+        .bi-person { color: #F68B1F; }
+        .bi-person:hover { color: #45B649; }
+        .bi-mortarboard { color: #45B649; }
+        .bi-mortarboard:hover { color: #003B8E; }
+        .bi-tools { color: #F68B1F; }
+        .bi-tools:hover { color: #1C1C1C; }
+        .bi-building { color: #1C1C1C; }
+        .bi-building:hover { color: #003B8E; }
+        .bi-geo-alt { color: #45B649; }
+        .bi-geo-alt:hover { color: #F68B1F; }
+        .bi-laptop { color: #003B8E; }
+        .bi-laptop:hover { color: #45B649; }
+        .bi-translate { color: #1C1C1C; }
+        .bi-translate:hover { color: #F68B1F; }
+
+        /* Language Dropdown */
+        .lang-btn {
+            background: #F68B1F;
+            border: none;
+            color: #fff;
+            border-radius: 25px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        .lang-btn:hover {
+            background: #45B649;
+        }
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .lang-btn:hover::before {
+            left: 100%;
+        }
+        .dropdown-menu {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-item:hover {
+            background: #F68B1F;
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: #fff;
+        }
+        .modal-content:hover {
+            transform: rotateX(5deg) rotateY(-5deg) scale(1.02);
+        }
+        .modal-header {
+            background: #45B649;
+            color: #fff;
+            border-radius: 15px 15px 0 0;
+        }
+        .modal-body {
+            background: #E6F0FA;
+        }
+        .modal-footer .btn {
+            border-radius: 25px;
+            background: #F68B1F;
+            color: #fff;
+        }
+        .modal-footer .btn:hover {
+            background: #45B649;
+        }
+
+        /* Tooltip */
+        .tooltip-inner {
+            background: #F68B1F;
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .bs-tooltip-auto[data-popper-placement^='top'] .tooltip-arrow::before,
+        .bs-tooltip-auto[data-popper-placement^='bottom'] .tooltip-arrow::before {
+            border-top-color: #F68B1F;
+            border-bottom-color: #F68B1F;
+        }
+
+        /* Hindi Support */
+        .lang-hi, .lang-hi .form-label, .lang-hi .form-control, .lang-hi .form-select, .lang-hi .btn, .lang-hi .nav-link, .lang-hi .modal-title, .lang-hi .modal-body p {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand tilt-element tilt-left" href="index.html" id="navbarBrand">
+                <img src="D:\Users\HP\Downloads\WhatsApp Image 2025-09-29 at 14.10.34.jpeg" alt="Prime Minister Internship Scheme Logo" class="tilt-element tilt-left">
+                <span>PRIME MINISTER INTERNSHIP SCHEME</span>
+            </a>
+            <button class="navbar-toggler tilt-element tilt-left" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active tilt-element tilt-left" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" id="findInternshipTooltip">
+                            <i class="bi bi-search icon"></i><span id="findInternshipNav">Find Internship</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tilt-element tilt-right" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" id="statusTooltip">
+                            <i class="bi bi-clock-history icon"></i><span id="internshipStatusNav">Internship Status</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tilt-element tilt-left" href="MAINUSERGUIDE.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" id="guideTooltip">
+                            <i class="bi bi-book icon"></i><span id="userGuideNav">User Guide</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn lang-btn dropdown-toggle tilt-element tilt-right" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="langButton">
+                        <i class="bi bi-translate icon"></i><span id="currentLang">English</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item lang-option" href="#" data-lang="en">English</a></li>
+                        <li><a class="dropdown-item lang-option" href="#" data-lang="hi">हिंदी</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="container mt-5 pt-5">
+        <div class="form-container tilt-element tilt-right">
+            <h2 class="text-center mb-4" id="formTitle" style="font-weight: 700; color: #003B8E;">
+                <i class="bi bi-person-plus icon"></i><span id="findYourInternship">Find Your Internship</span>
+            </h2>
+            <form id="internshipForm" novalidate>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label" id="fullNameLabel"><i class="bi bi-person icon"></i><span id="fullNameText">Full Name</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control tilt-element tilt-left" id="fullName" placeholder="" required>
+                    <div class="error-message" id="fullNameError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="education" class="form-label" id="educationLabel"><i class="bi bi-mortarboard icon"></i><span id="educationText">Education Qualification</span> <span class="text-danger">*</span></label>
+                    <select class="form-select tilt-element tilt-right" id="education" required>
+                        <option value=""> </option>
+                        <option value="10th"></option>
+                        <option value="12th"></option>
+                        <option value="undergraduate"></option>
+                        <option value="postgraduate"></option>
+                    </select>
+                    <div class="error-message" id="educationError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="skills" class="form-label" id="skillsLabel"><i class="bi bi-tools icon"></i><span id="skillsText">Skills</span></label>
+                    <input type="text" class="form-control tilt-element tilt-left" id="skills" placeholder="">
+                    <div class="skills-buttons">
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-left" data-skill="Python">Python</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-right" data-skill="Java">Java</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-left" data-skill="JavaScript">JavaScript</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-right" data-skill="HTML/CSS">HTML/CSS</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-left" data-skill="Communication">Communication</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-right" data-skill="Leadership">Leadership</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-left" data-skill="Data Analysis">Data Analysis</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-right" data-skill="Marketing">Marketing</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-left" data-skill="Design">Design</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm tilt-element tilt-right" data-skill="Other">+ Other</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="sector" class="form-label" id="sectorLabel"><i class="bi bi-building icon"></i><span id="sectorText">Sector of Interest</span> <span class="text-danger">*</span></label>
+                    <select class="form-select tilt-element tilt-right" id="sector" required>
+                        <option value=""> </option>
+                        <option value="IT"></option>
+                        <option value="Healthcare"></option>
+                        <option value="Agriculture"></option>
+                        <option value="Finance"></option>
+                        <option value="Education"></option>
+                        <option value="Others"></option>
+                    </select>
+                    <div class="error-message" id="sectorError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label" id="locationLabel"><i class="bi bi-geo-alt icon"></i><span id="locationText">Preferred Location</span></label>
+                    <input type="text" class="form-control tilt-element tilt-left" id="location" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label" id="typeLabel"><i class="bi bi-laptop icon"></i><span id="typeText">Internship Type</span> <span class="text-danger">*</span></label>
+                    <select class="form-select tilt-element tilt-right" id="type" required>
+                        <option value=""> </option>
+                        <option value="Remote"></option>
+                        <option value="In-Person"></option>
+                        <option value="Hybrid"></option>
+                    </select>
+                    <div class="error-message" id="typeError"></div>
+                </div>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary tilt-element tilt-right" id="submitButton"><i class="bi bi-search icon"></i><span id="findInternshipBtn">Find Internship</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content tilt-element tilt-left">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel"><i class="bi bi-check-circle-fill icon"></i><span id="successTitle">Success!</span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="successMessage">Your internship search has been submitted successfully! We'll find the perfect opportunities for you.</p>
+                    <div class="formDataDisplay" id="formDataDisplay" style="background: #fff; padding: 1rem; border-radius: 10px; margin-top: 1rem; display: none;"></div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success tilt-element tilt-right" data-bs-dismiss="modal" id="awesomeBtn">Awesome!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Language Translations -->
+    <script>
+        const translations = {
+            en: {
+                navbarBrand: 'PRIME MINISTER INTERNSHIP SCHEME',
+                findInternshipNav: 'Find Internship',
+                findInternshipTooltip: 'Search for internships matching your profile',
+                internshipStatusNav: 'Internship Status',
+                statusTooltip: 'Check the status of your internship applications',
+                userGuideNav: 'User Guide',
+                guideTooltip: 'Access the user manual and FAQs',
+                currentLang: 'English',
+                formTitle: 'Find Your Internship',
+                fullNameText: 'Full Name',
+                fullNamePlaceholder: 'Enter your full name',
+                fullNameError: 'Please enter your full name.',
+                educationText: 'Education Qualification',
+                educationPlaceholder: 'Select your qualification',
+                educationError: 'Please select your education qualification.',
+                educationOptions: ['', '10th', '12th', 'Undergraduate', 'Postgraduate'],
+                skillsText: 'Skills',
+                skillsPlaceholder: 'Enter skills separated by commas (e.g., Python, Java, Communication)',
+                sectorText: 'Sector of Interest',
+                sectorPlaceholder: 'Select sector',
+                sectorError: 'Please select a sector of interest.',
+                sectorOptions: ['', 'IT', 'Healthcare', 'Agriculture', 'Finance', 'Education', 'Others'],
+                locationText: 'Preferred Location',
+                locationPlaceholder: 'Enter preferred city or state',
+                typeText: 'Internship Type',
+                typePlaceholder: 'Select type',
+                typeError: 'Please select an internship type.',
+                typeOptions: ['', 'Remote', 'In-Person', 'Hybrid'],
+                findInternshipBtn: 'Find Internship',
+                successTitle: 'Success!',
+                successMessage: 'Your internship search has been submitted successfully! We\'ll find the perfect opportunities for you.',
+                awesomeBtn: 'Awesome!'
+            },
+            hi: {
+                navbarBrand: 'प्रधानमंत्री इंटर्नशिप योजना',
+                findInternshipNav: 'इंटर्नशिप खोजें',
+                findInternshipTooltip: 'अपने प्रोफाइल से मेल खाने वाली इंटर्नशिप खोजें',
+                internshipStatusNav: 'इंटर्नशिप स्थिति',
+                statusTooltip: 'अपनी इंटर्नशिप आवेदनों की स्थिति जांचें',
+                userGuideNav: 'उपयोगकर्ता गाइड',
+                guideTooltip: 'उपयोगकर्ता मैनुअल और FAQs तक पहुंचें',
+                currentLang: 'हिंदी',
+                formTitle: 'अपनी इंटर्नशिप खोजें',
+                fullNameText: 'पूरा नाम',
+                fullNamePlaceholder: 'अपना पूरा नाम दर्ज करें',
+                fullNameError: 'कृपया अपना पूरा नाम दर्ज करें।',
+                educationText: 'शैक्षिक योग्यता',
+                educationPlaceholder: 'अपनी योग्यता चुनें',
+                educationError: 'कृपया अपनी शैक्षिक योग्यता चुनें।',
+                educationOptions: ['', '10वीं', '12वीं', 'स्नातक', 'स्नातकोत्तर'],
+                skillsText: 'कौशल',
+                skillsPlaceholder: 'कौशल को अल्पविराम से अलग करके दर्ज करें (उदाहरण: Python, Java, संचार)',
+                sectorText: 'रुचि का क्षेत्र',
+                sectorPlaceholder: 'क्षेत्र चुनें',
+                sectorError: 'कृपया रुचि का क्षेत्र चुनें।',
+                sectorOptions: ['', 'आईटी', 'स्वास्थ्य सेवा', 'कृषि', 'वित्त', 'शिक्षा', 'अन्य'],
+                locationText: 'पसंदीदा स्थान',
+                locationPlaceholder: 'पसंदीदा शहर या राज्य दर्ज करें',
+                typeText: 'इंटर्नशिप प्रकार',
+                typePlaceholder: 'प्रकार चुनें',
+                typeError: 'कृपया इंटर्नशिप प्रकार चुनें।',
+                typeOptions: ['', 'रिमोट', 'व्यक्तिगत', 'हाइब्रिड'],
+                findInternshipBtn: 'इंटर्नशिप खोजें',
+                successTitle: 'सफलता!',
+                successMessage: 'आपकी इंटर्नशिप खोज सफलतापूर्वक जमा कर दी गई है! हम आपके लिए सही अवसर ढूंढेंगे।',
+                awesomeBtn: 'शानदार!'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            const t = translations[lang];
+            document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+            document.body.classList.toggle('lang-hi', lang === 'hi');
+
+            document.querySelector('#navbarBrand span').textContent = t.navbarBrand;
+            document.getElementById('findInternshipNav').textContent = t.findInternshipNav;
+            document.getElementById('findInternshipTooltip').setAttribute('title', t.findInternshipTooltip);
+            document.getElementById('internshipStatusNav').textContent = t.internshipStatusNav;
+            document.getElementById('statusTooltip').setAttribute('title', t.statusTooltip);
+            document.getElementById('userGuideNav').textContent = t.userGuideNav;
+            document.getElementById('guideTooltip').setAttribute('title', t.guideTooltip);
+            document.getElementById('currentLang').textContent = t.currentLang;
+            document.getElementById('langButton').setAttribute('aria-label', t.currentLang);
+
+            document.getElementById('findYourInternship').textContent = t.formTitle;
+            document.getElementById('fullNameText').textContent = t.fullNameText;
+            document.getElementById('fullName').placeholder = t.fullNamePlaceholder;
+            document.getElementById('fullNameError').textContent = t.fullNameError;
+            document.getElementById('educationText').textContent = t.educationText;
+            document.getElementById('education').options[0].textContent = t.educationPlaceholder;
+            document.getElementById('educationError').textContent = t.educationError;
+            const eduOptions = t.educationOptions;
+            for (let i = 1; i < 5; i++) {
+                document.getElementById('education').options[i].textContent = eduOptions[i];
+            }
+            document.getElementById('skillsText').textContent = t.skillsText;
+            document.getElementById('skills').placeholder = t.skillsPlaceholder;
+            document.getElementById('sectorText').textContent = t.sectorText;
+            document.getElementById('sector').options[0].textContent = t.sectorPlaceholder;
+            document.getElementById('sectorError').textContent = t.sectorError;
+            const sectorOptions = t.sectorOptions;
+            for (let i = 1; i < 7; i++) {
+                document.getElementById('sector').options[i].textContent = sectorOptions[i];
+            }
+            document.getElementById('locationText').textContent = t.locationText;
+            document.getElementById('location').placeholder = t.locationPlaceholder;
+            document.getElementById('typeText').textContent = t.typeText;
+            document.getElementById('type').options[0].textContent = t.typePlaceholder;
+            document.getElementById('typeError').textContent = t.typeError;
+            const typeOptions = t.typeOptions;
+            for (let i = 1; i < 4; i++) {
+                document.getElementById('type').options[i].textContent = typeOptions[i];
+            }
+            document.getElementById('findInternshipBtn').textContent = t.findInternshipBtn;
+
+            document.getElementById('successTitle').textContent = t.successTitle;
+            document.getElementById('successMessage').textContent = t.successMessage;
+            document.getElementById('awesomeBtn').textContent = t.awesomeBtn;
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach(tooltipTriggerEl => {
+                const tooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                if (tooltip) {
+                    tooltip.dispose();
+                }
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            updateErrorModal();
+        }
+
+        function updateErrorModal() {
+            const errorModal = document.getElementById('errorModal');
+            if (errorModal) {
+                const t = translations[currentLanguage];
+                const errorTitle = errorModal.querySelector('#errorModalLabel span') || errorModal.querySelector('.modal-title');
+                if (errorTitle) errorTitle.innerHTML = '<i class="bi bi-exclamation-triangle-fill icon"></i>' + (currentLanguage === 'hi' ? 'ओह!' : 'Oops!');
+                const errorMessage = errorModal.querySelector('.modal-body p');
+                if (errorMessage) errorMessage.textContent = t.fullNameError.replace('full name', currentLanguage === 'hi' ? 'सभी आवश्यक फ़ील्ड जो * से चिह्नित हैं' : 'all required fields marked with *');
+                const gotItBtn = errorModal.querySelector('.btn-danger');
+                if (gotItBtn) gotItBtn.textContent = currentLanguage === 'hi' ? 'समझ गया!' : 'Got It!';
+            }
+        }
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        setLanguage('en');
+
+        document.querySelectorAll('.skills-buttons button[data-skill]').forEach(button => {
+            button.addEventListener('click', function() {
+                const skill = this.getAttribute('data-skill');
+                const input = document.getElementById('skills');
+                const currentValue = input.value.trim();
+                if (currentValue === '') {
+                    input.value = skill;
+                } else {
+                    input.value = currentValue + ', ' + skill;
+                }
+                input.focus();
+            });
+        });
+
+        const requiredFields = [
+            { id: 'fullName', errorId: 'fullNameError', msgId: 'fullNameError', type: 'input' },
+            { id: 'education', errorId: 'educationError', msgId: 'educationError', type: 'select' },
+            { id: 'sector', errorId: 'sectorError', msgId: 'sectorError', type: 'select' },
+            { id: 'type', errorId: 'typeError', msgId: 'typeError', type: 'select' }
+        ];
+
+        function validateField(field) {
+            const input = document.getElementById(field.id);
+            const errorEl = document.getElementById(field.errorId);
+            const value = input.value.trim();
+            const isValid = value !== '';
+
+            if (isValid) {
+                errorEl.style.display = 'none';
+                input.classList.remove('is-invalid');
+            } else {
+                errorEl.style.display = 'block';
+                input.classList.add('is-invalid');
+            }
+            return isValid;
+        }
+
+        requiredFields.forEach(field => {
+            const input = document.getElementById(field.id);
+            if (field.type === 'input') {
+                input.addEventListener('input', () => validateField(field));
+                input.addEventListener('blur', () => validateField(field));
+            } else {
+                input.addEventListener('change', () => validateField(field));
+            }
+        });
+
+        document.getElementById('internshipForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isFormValid = true;
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    isFormValid = false;
+                }
+            });
+            
+            if (!isFormValid) {
+                const errorModal = document.getElementById('errorModal') || createErrorModal();
+                const bsModal = new bootstrap.Modal(errorModal);
+                bsModal.show();
+                return;
+            }
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                education: document.getElementById('education').value,
+                skills: document.getElementById('skills').value,
+                sector: document.getElementById('sector').value,
+                location: document.getElementById('location').value,
+                type: document.getElementById('type').value
+            };
+            console.log('Form Data:', formData);
+            
+            const displayEl = document.getElementById('formDataDisplay');
+            displayEl.innerHTML = Object.entries(formData).map(([key, value]) => `<strong>${key}:</strong> ${value}`).join('<br>');
+            displayEl.style.display = 'block';
+            
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        });
+
+        function createErrorModal() {
+            const t = translations[currentLanguage];
+            const modalHtml = `
+                <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content tilt-element tilt-left">
+                            <div class="modal-header" style="background: #dc3545; color: #fff; border-radius: 15px 15px 0 0;">
+                                <h5 class="modal-title" id="errorModalLabel"><i class="bi bi-exclamation-triangle-fill icon"></i><span>${currentLanguage === 'hi' ? 'ओह!' : 'Oops!'}</span></h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center" style="background: #E6F0FA;">
+                                <p>${t.fullNameError.replace('full name', currentLanguage === 'hi' ? 'सभी आवश्यक फ़ील्ड जो * से चिह्नित हैं' : 'all required fields marked with *')}</p>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-danger tilt-element tilt-left" data-bs-dismiss="modal">${currentLanguage === 'hi' ? 'समझ गया!' : 'Got It!'}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            return document.getElementById('errorModal');
+        }
+    </script>
+</body>
+</html>
